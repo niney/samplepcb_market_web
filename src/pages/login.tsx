@@ -2,6 +2,10 @@ import { gql, useMutation } from "@apollo/client"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { FormError } from "../components/form-error"
+import {
+  loginMutation,
+  loginMutationVariables,
+} from "../__generated__/loginMutation"
 
 const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {
@@ -16,9 +20,10 @@ const LOGIN_MUTATION = gql`
 interface ILoginForm {
   userId: string
   password: string
+  resultError?: string
 }
 
-const onCompleted = (data: any) => {
+const onCompleted = (data: loginMutation) => {
   const {
     login: { ok, token },
   } = data
@@ -32,7 +37,10 @@ const onCompleted = (data: any) => {
 
 export const Login = () => {
   const { register, getValues, errors, handleSubmit } = useForm<ILoginForm>()
-  const [loginMutation, { data }] = useMutation(LOGIN_MUTATION, {
+  const [loginMutation, { data: loginMutationResult, loading }] = useMutation<
+    loginMutation,
+    loginMutationVariables
+  >(LOGIN_MUTATION, {
     onCompleted,
   })
   const onSubmit = () => {
@@ -46,8 +54,6 @@ export const Login = () => {
       },
     })
   }
-
-  console.log(data)
 
   return (
     <div className="h-screen flex items-center justify-center bg-gray-800">
@@ -79,7 +85,12 @@ export const Login = () => {
           {errors.password?.message && (
             <FormError errorMessage={errors.password?.message} />
           )}
-          <button className="mt-3 btn">Log In</button>
+          <button className="mt-3 btn">
+            {loading ? "Loading..." : "Log In"}
+          </button>
+          {loginMutationResult?.login.error && (
+            <FormError errorMessage={loginMutationResult.login.error} />
+          )}
         </form>
       </div>
     </div>
