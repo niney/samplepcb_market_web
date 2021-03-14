@@ -2,6 +2,12 @@ import { gql, useQuery } from "@apollo/client"
 import React from "react"
 import { isLoggedInVar } from "../apollo"
 import { meQuery } from "../__generated__/meQuery"
+// import {
+//   BrowserRouter as Router,
+//   Redirect,
+//   Route,
+//   Switch,
+// } from "react-router-dom"
 
 const ME_QUERY = gql`
   query meQuery {
