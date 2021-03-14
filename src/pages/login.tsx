@@ -9,7 +9,9 @@ import {
   loginMutation,
   loginMutationVariables,
 } from "../__generated__/loginMutation"
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet-async"
+import { LOCALSTORAGE_TOKEN } from "../constants"
+import { authTokenVar, isLoggedInVar } from "../apollo"
 
 const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {
@@ -31,10 +33,9 @@ const onCompleted = (data: loginMutation) => {
     login: { ok, token },
   } = data
   if (ok && token) {
-    console.log(ok, token)
-    // localStorage.setItem(LOCALSTORAGE_TOKEN, token)
-    // authTokenVar(token)
-    // isLoggedInVar(true)
+    localStorage.setItem(LOCALSTORAGE_TOKEN, token)
+    authTokenVar(token)
+    isLoggedInVar(true)
   }
 }
 
