@@ -9,6 +9,7 @@ import {
   loginMutation,
   loginMutationVariables,
 } from "../__generated__/loginMutation"
+import { Helmet } from "react-helmet"
 
 const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {
@@ -67,6 +68,9 @@ export const Login = () => {
 
   return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
+      <Helmet>
+        <title>Login | PCB 재능마켓</title>
+      </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
         <img src={Logo} className="w-52 mb-10" alt="" />
         <h4 className="w-full font-medium text-left text-3xl mb-5">
