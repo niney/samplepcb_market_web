@@ -1,26 +1,17 @@
-import { gql, useQuery } from "@apollo/client"
 import React from "react"
 import { isLoggedInVar } from "../apollo"
-import { meQuery } from "../__generated__/meQuery"
-// import {
-//   BrowserRouter as Router,
-//   Redirect,
-//   Route,
-//   Switch,
-// } from "react-router-dom"
-
-const ME_QUERY = gql`
-  query meQuery {
-    me {
-      id
-      userId
-      name
-    }
-  }
-`
+import {
+  BrowserRouter as Router,
+  Redirect,
+  // Route,
+  Switch,
+} from "react-router-dom"
+import { Header } from "../components/header"
+import { useMe } from "../hooks/useMe"
+import { LOCALSTORAGE_TOKEN } from "../constants"
 
 export const LoggedInRouter = () => {
-  const { data, loading, error } = useQuery<meQuery>(ME_QUERY)
+  const { data, loading, error } = useMe()
 
   if (!data || loading || error) {
     return (
@@ -29,10 +20,31 @@ export const LoggedInRouter = () => {
       </div>
     )
   }
+  // return (
+  //   <div>
+  //     <h1>{data.me.userId + " | " + data.me.name}</h1>
+  //     <button onClick={() => isLoggedInVar(false)}>Log Out</button>
+  //   </div>
+  // )
   return (
-    <div>
-      <h1>{data.me.userId + " | " + data.me.name}</h1>
-      <button onClick={() => isLoggedInVar(false)}>Log Out</button>
-    </div>
+    <>
+      <Router>
+        <Header />
+        <Switch>
+          <Redirect to="/" />
+        </Switch>
+      </Router>
+      <div>
+        <h1>{data.me.userId + " | " + data.me.name}</h1>
+        <button
+          onClick={() => {
+            isLoggedInVar(false)
+            localStorage.removeItem(LOCALSTORAGE_TOKEN)
+          }}
+        >
+          Log Out
+        </button>
+      </div>
+    </>
   )
 }

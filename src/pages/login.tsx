@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import { Button } from "../components/button"
 import { FormError } from "../components/form-error"
-import Logo from "../images/logo.svg"
+// import Logo from "../images/logo.svg"
 import {
   loginMutation,
   loginMutationVariables,
@@ -73,7 +73,8 @@ export const Login = () => {
         <title>Login | PCB 재능마켓</title>
       </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-        <img src={Logo} className="w-52 mb-10" alt="" />
+        {/* <img src={Logo} className="w-52 mb-10" alt="" /> */}
+        <h1>로그인</h1>
         <h4 className="w-full font-medium text-left text-3xl mb-5">
           Welcome back
         </h4>

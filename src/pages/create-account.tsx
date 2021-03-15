@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { Link, useHistory } from "react-router-dom"
 import { Button } from "../components/button"
 import { FormError } from "../components/form-error"
-import Logo from "../images/logo.svg"
+// import Logo from "../images/logo.svg"
 import {
   createAccountMutation,
   createAccountMutationVariables,
@@ -76,7 +76,8 @@ export const CreateAccount = () => {
         <title>Create Account | PCB 재능마켓</title>
       </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-        <img src={Logo} className="w-52 mb-10" alt="" />
+        {/* <img src={Logo} className="w-52 mb-10" alt="" /> */}
+        <h1>회원가입</h1>
         <div className="w-full font-medium text-left text-3xl mb-5">
           Let's get started
         </div>
