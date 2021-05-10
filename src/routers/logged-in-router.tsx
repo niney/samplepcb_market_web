@@ -1,14 +1,12 @@
 import React from "react"
 import { isLoggedInVar } from "../apollo"
-import {
-  BrowserRouter as Router,
-  Redirect,
-  // Route,
-  Switch,
-} from "react-router-dom"
+import { BrowserRouter as Router, Route } from "react-router-dom"
 import { Header } from "../components/header"
 import { useMe } from "../hooks/useMe"
 import { LOCALSTORAGE_TOKEN } from "../constants"
+import { SelectCategory } from "../pages/freelancer/select-category"
+import { AddFreelancer } from "../pages/freelancer/add-freelancer"
+import { Index } from "../pages"
 
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe()
@@ -30,9 +28,16 @@ export const LoggedInRouter = () => {
     <>
       <Router>
         <Header />
-        <Switch>
-          <Redirect to="/" />
-        </Switch>
+
+        <Route path="/freelancer" exact>
+          <SelectCategory />
+        </Route>
+        <Route path="/freelancer/:slug">
+          <AddFreelancer />
+        </Route>
+        <Route path="/" exact>
+          <Index />
+        </Route>
       </Router>
       <div>
         <h1>{data.me.userId + " | " + data.me.name}</h1>
